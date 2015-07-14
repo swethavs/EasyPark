@@ -1,0 +1,1 @@
+individualparkinglotid=1&fromtime=1436831640000&endtime=1436831820000&parkingspotid=2
