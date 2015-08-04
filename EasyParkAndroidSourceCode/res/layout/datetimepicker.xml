@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Copyright (c) 2015 swethavs
+
+[This program is licensed under the "MIT License"]
+
+Please see the file COPYING in the source
+
+distribution of this software for license terms.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content" android:fitsSystemWindows="true" 
+	android:padding="5dip" android:id="@+id/DateTimePicker">
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:baselineAligned="true"
+    android:orientation="horizontal">
+    
+	<LinearLayout
+        android:id="@+id/month_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="vertical" > 
+        <Button
+            android:id="@+id/month_plus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"     
+            android:background="@drawable/image_button_up"/>  
+        <EditText
+            android:id="@+id/month_display"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:background="@drawable/picker_middle"
+            android:focusable="false"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#C0C0C0" > 
+        </EditText> 
+        <Button
+            android:id="@+id/month_minus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"        
+            android:background="@drawable/image_button_down" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/date_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <Button
+            android:id="@+id/date_plus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"        
+            android:background="@drawable/image_button_up" />
+        <EditText
+            android:id="@+id/date_display"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:background="@drawable/picker_middle"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="#C0C0C0"
+            android:singleLine="true" />
+        <Button
+            android:id="@+id/date_minus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"        
+            android:background="@drawable/image_button_down"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/year_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <Button
+            android:id="@+id/year_plus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"        
+                android:background="@drawable/image_button_up" />
+        <EditText
+            android:id="@+id/year_display"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:background="@drawable/picker_middle"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="#C0C0C0"
+            android:singleLine="true" />
+        <Button
+            android:id="@+id/year_minus"
+            android:layout_width="40dp"
+            android:layout_height="28dp"        
+            android:background="@drawable/image_button_down" />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/hour_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+            <Button
+                android:id="@+id/hour_plus"
+                android:layout_width="40dp"
+                android:layout_height="28dp"	        
+                android:background="@drawable/image_button_up" />
+            <EditText
+                android:id="@+id/hour_display"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
+                android:background="@drawable/picker_middle"
+                android:gravity="center"
+                android:inputType="number"
+            	android:textColor="#C0C0C0"
+          	    android:singleLine="true" >
+            </EditText>
+            <Button
+                android:id="@+id/hour_minus"
+                android:layout_width="40dp"
+                android:layout_height="28dp"        
+                android:background="@drawable/image_button_down"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/min_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+            <Button
+                android:id="@+id/min_plus"
+                android:layout_width="40dp"
+                android:layout_height="28dp"        
+                android:background="@drawable/image_button_up" />
+            <EditText
+                android:id="@+id/min_display"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
+                android:background="@drawable/picker_middle"
+                android:gravity="center"
+                android:inputType="number"
+            	android:textColor="#C0C0C0"
+                android:singleLine="true" />
+            <Button
+                android:id="@+id/min_minus"
+                android:layout_width="40dp"
+                android:layout_height="28dp"        
+                android:background="@drawable/image_button_down"/>
+        </LinearLayout>
+</LinearLayout>
+</RelativeLayout>
