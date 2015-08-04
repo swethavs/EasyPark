@@ -1,1 +1,0 @@
-latitude=45.5235587&longitude=-122.8890231&radius=2.0&fromtime=1436831640000&endtime=1436831820000
