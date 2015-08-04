@@ -1,1 +1,0 @@
-latitude=45.523653333333336&longitude=-122.88897999999999&isradius=true&radius=2.0&zipcode=0&fromtime=1438143780000&endtime=1438147380000
