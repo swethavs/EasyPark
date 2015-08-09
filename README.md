@@ -14,7 +14,7 @@ In the paid parking, users can search for parking lots by entering radius or zip
 
 ###Technical Details
 
-1.This app was  developed in  Android with API target 22 (5.1.1) Lollipop and tested in KitKat (API 21) <br>
+1.This app was  developed in  Android with API target 22 (5.1.1) Lollipop and tested in Lollipop (5.0.1) <br>
 2. It uses WebAPI developed in PHP/MySQL in the backend to store and retrieve parking data. The WebAPI is hosted in http://www.000webhost.com/.<br>
  Website name: http://easypark.net46.net/easypark/ <br>
 3. SQLite for storing the Login related info(username and password) <br>
