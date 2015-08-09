@@ -19,3 +19,4 @@ In the paid parking, users can search for parking lots by entering radius or zip
  Website name: http://easypark.net46.net/easypark/ <br>
 3. SQLite for storing the Login related info(username and password) <br>
 
+####Bug Reporting
