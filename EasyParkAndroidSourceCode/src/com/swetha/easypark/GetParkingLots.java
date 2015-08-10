@@ -32,6 +32,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -45,6 +47,7 @@ import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 
 import com.swetha.easypark.R;
+import com.swetha.helpers.Constants;
 import com.swetha.helpers.DateTimeHelpers;
 
 
@@ -60,6 +63,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 
+/**
+ * This class allows the user to set the duration of parking and get the parking lots data
+ * It also has a menu in it which allows the user to view or insert the free parkinglot data
+ */
 
 public class GetParkingLots extends FragmentActivity implements LocationListener, DateWatcher
 {
@@ -78,7 +85,7 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	RadioButton rbRadius;
 	RadioButton rbZipCode;
 	int checkedRbId;
-	boolean gps_enabled, network_enabled;
+    boolean gps_enabled, network_enabled;
 	
 	public static final String LATITUDE = "com.swetha.easypark.GetParkingLots.Location";
 	public static final String LONGITUDE = "com.swetha.easypark.GetParkingLots.Longitude";
@@ -102,13 +109,16 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	 static  String fromTimeString = DateTimeHelpers.dtf.format(new Date()).toString() ;
 	 static String toTimeString = DateTimeHelpers.dtf.format(new Date()).toString() ;
 	 
-	 final SimpleDateFormat dtf = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+	
 	 
 	 public static double latitude;
 	 public static double longitude;
 
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		
 		
 		
         if (!isGooglePlayServicesAvailable()) {
@@ -133,7 +143,7 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	        
 	    
 		   
-		   // Getting the name of the provider that meets the criteria
+		   
 	        provider = locationManager.getBestProvider(criteria, true);
 	        
 	                
@@ -154,15 +164,11 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	        	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1, GetParkingLots.this);
 	        	 
 	        }
-	        if (location == null)
-	        {
-	        	latitude = 45.5094021;
-	        	longitude = -122.6813699;
-            	location = new Location(provider);
-            	location.setLatitude(latitude);
-            	location.setLongitude(longitude);
-	        }
-	            
+	    
+	            if (location == null && !network_enabled && !gps_enabled)
+	            {
+	            	Toast.makeText(getBaseContext(), "Enable your location services", Toast.LENGTH_LONG).show();
+	            }
 	            if(location!=null)
 	            	onLocationChanged(location);
 	            else
@@ -170,21 +176,17 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	            	
 	            	Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
 	            }
-	            
-	        /*else{
-	        	Toast.makeText(getBaseContext(), "No Provider Found", Toast.LENGTH_SHORT).show();
-	        }*/
 	        
 	       
 	         tv_fromTime = (TextView) findViewById(R.id.tv_fromTime);
-	        fromTimeString = dtf.format(new Date()).toString();
+	        fromTimeString = Constants.dtf.format(new Date()).toString();
 	        tv_fromTime.setText(fromTimeString);
-	        long lval  =  DateTimeHelpers.convertToLongFromTime(dtf.format(new Date()).toString());
-	        Log.i("GetParkingLots","The value of current time:" + dtf.format(new Date()).toString() + "in long is" + lval);
+	        long lval  =  DateTimeHelpers.convertToLongFromTime(Constants.dtf.format(new Date()).toString());
+	        Log.i("GetParkingLots","The value of current time:" + Constants.dtf.format(new Date()).toString() + "in long is" + lval);
 	        Log.i("GetParkingLots","The value of current time:" + lval + "in long is" + DateTimeHelpers.convertToTimeFromLong(lval));
 	        tv_toTime = (TextView) findViewById(R.id.tv_ToTime);
 	     // Parsing the date
-	        toTimeString = dtf.format(new Date()).toString();
+	        toTimeString = Constants.dtf.format(new Date()).toString();
 	        tv_toTime.setText(toTimeString);
 	        
 	        btnFromTime = (Button) findViewById(R.id.fromButton);
@@ -202,13 +204,38 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 					 
 					// Update demo TextViews when the "OK" button is clicked 
 					((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime)).setOnClickListener(new OnClickListener() {
-
+						Calendar cal;
+						@SuppressWarnings("deprecation")
 						public void onClick(View v) {
 							mDateTimePicker.clearFocus();
-							
-							Calendar cal = new GregorianCalendar(mDateTimePicker.getYear(), Integer.parseInt(mDateTimePicker.getMonth()), mDateTimePicker.getDay(), mDateTimePicker.getHour(), mDateTimePicker.getMinute());
-							fromTimeString = DateTimeHelpers.dtf.format(cal.getTime());
+							try
+							{
+							 cal = new GregorianCalendar(mDateTimePicker.getYear(), Integer.parseInt(mDateTimePicker.getMonth()), mDateTimePicker.getDay(), mDateTimePicker.getHour(), mDateTimePicker.getMinute());
+							 fromTimeString = DateTimeHelpers.dtf.format(cal.getTime());
 							tv_fromTime.setText(fromTimeString);
+							}
+							catch (Exception e)
+							{
+								final AlertDialog alertDialog = new AlertDialog.Builder(
+				                        GetParkingLots.this).create();
+				 
+				        
+				 
+				        
+				        alertDialog.setMessage("Enter a valid date");
+				 
+				      
+				        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				                public void onClick(DialogInterface dialog, int which) {
+				                
+				                	alertDialog.dismiss();
+				                }
+				        });
+				 
+
+				        alertDialog.show();
+							}
+							
 							mDateTimeDialog.dismiss();
 						}
 					});
@@ -259,22 +286,44 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 					 
 					// Update demo TextViews when the "OK" button is clicked 
 					((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime)).setOnClickListener(new OnClickListener() {
-
+						Calendar cal;
+						@SuppressWarnings("deprecation")
 						public void onClick(View v) {
 							mDateTimePicker.clearFocus();
-							Log.i("toButton","Value of ToString before cal" +toTimeString);
-							Calendar cal = new GregorianCalendar(mDateTimePicker.getYear(), Integer.parseInt(mDateTimePicker.getMonth()), mDateTimePicker.getDay(), mDateTimePicker.getHour(), mDateTimePicker.getMinute());
 							
+							Log.i("toButton","Value of ToString before cal" +toTimeString);
+							try
+							{
+							 cal = new GregorianCalendar(mDateTimePicker.getYear(), Integer.parseInt(mDateTimePicker.getMonth()), mDateTimePicker.getDay(), mDateTimePicker.getHour(), mDateTimePicker.getMinute());
+							 toTimeString = DateTimeHelpers.dtf.format(cal.getTime());
+								Log.i("toButton","Value of ToString before cal" +toTimeString);
+								
+								tv_toTime.setText(toTimeString);
+							 
+							}
+							 catch (Exception e) // fixing the bug where the user doesnt enter anything in the textbox
+								{
+									final AlertDialog alertDialog = new AlertDialog.Builder(
+					                        GetParkingLots.this).create();
+					 
+					        
+					 
+					        alertDialog.setMessage("Enter a valid date");
+					        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					                public void onClick(DialogInterface dialog, int which) {
+					                	alertDialog.dismiss();
+					                }
+					        });
+					 
+					        alertDialog.show();
+								}
 							//dateTimeTo = new DateTime(mDateTimePicker.getYear(), Integer.parseInt(mDateTimePicker.getMonth()) ,  mDateTimePicker.getDay(),  mDateTimePicker.getHour(),  mDateTimePicker.getMinute()); ;
-							toTimeString = DateTimeHelpers.dtf.format(cal.getTime());
-							Log.i("toButton","Value of ToString before cal" +toTimeString);
 							
-							tv_toTime.setText(toTimeString);
 							mDateTimeDialog.dismiss();
 						}
 					});
 
-					// Cancel the dialog when the "Cancel" button is clicked
+					
 					((Button) mDateTimeDialogView.findViewById(R.id.CancelDialog)).setOnClickListener(new OnClickListener() {
 
 						public void onClick(View v) {
@@ -328,34 +377,32 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 				}
 				
 				
-				Intent intent = new Intent(GetParkingLots.this, DisplayVacantParkingLots.class);
+				final Intent intent = new Intent(GetParkingLots.this, DisplayVacantParkingLots.class);
 				Log.i(TAG,"Inside getNearByParkingLots");
 				Log.i(TAG,"Value of fromString" +fromTimeString);
 				long lFromVal  =  DateTimeHelpers.convertToLongFromTime(fromTimeString);
 				Log.i(TAG,"Value of ToString" +toTimeString);
 				long lToVal  =  DateTimeHelpers.convertToLongFromTime(toTimeString);
-				if ((lToVal - lFromVal) < 1800000) // milliseconds to 30 min
+				if ((lToVal - lFromVal) < Constants.thrityMinInMilliSeconds) 
 				{
 					final AlertDialog alertDialog = new AlertDialog.Builder(
 	                        GetParkingLots.this).create();
 	 
 	        
 	 
-	        // Setting Dialog Message
+	        
 	        alertDialog.setMessage("You have to park the car for at least 30 min");
 	 
-	        // Setting Icon to Dialog
-	       // alertDialog.setIcon(R.drawable.tick);
 	 
-	        // Setting OK Button
+	        
 	        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 	                public void onClick(DialogInterface dialog, int which) {
-	                // Write your code here to execute after dialog closed
+	                
 	                	alertDialog.dismiss();
 	                }
 	        });
 	 
-	        // Showing Alert Message
+	        
 	        alertDialog.show();
 	 
 
@@ -372,6 +419,7 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 				{
 				
 				intent.putExtra(RADIUS, Double.parseDouble(radius));
+				startActivity(intent);
 				}
 				catch(Exception e)
 				{
@@ -380,21 +428,16 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	 
 	        
 	 
-	        // Setting Dialog Message
 	        alertDialog.setMessage("Enter valid radius");
-	 
-	        // Setting Icon to Dialog
-	       // alertDialog.setIcon(R.drawable.tick);
-	 
-	        // Setting OK Button
+	     
 	        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 	                public void onClick(DialogInterface dialog, int which) {
-	                // Write your code here to execute after dialog closed
+	                
 	                	alertDialog.dismiss();
+	                	
 	                }
 	        });
 	 
-	        // Showing Alert Message
 	        alertDialog.show();
 				}
 				else 
@@ -403,6 +446,7 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 				{
 				
 				intent.putExtra(ZIPCODE, Long.parseLong(zipcode));
+				startActivity(intent);
 				}
 				catch(Exception e)
 				{
@@ -411,44 +455,64 @@ public class GetParkingLots extends FragmentActivity implements LocationListener
 	 
 	        
 	 
-	        // Setting Dialog Message
 	        alertDialog.setMessage("Enter a valid Zip code");
 	 
-	        // Setting Icon to Dialog
-	       // alertDialog.setIcon(R.drawable.tick);
-	 
-	        // Setting OK Button
 	        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 	                public void onClick(DialogInterface dialog, int which) {
-	                // Write your code here to execute after dialog closed
 	                	alertDialog.dismiss();
+	                	
 	                }
 	        });
 	 
-	        // Showing Alert Message
 	        alertDialog.show();
 				}
 				}
-	            startActivity(intent);
+				
 				}
+				
 			}
 			});
 		
 	}
 	
+	
+	@Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        
+	        getMenuInflater().inflate(R.menu.main, menu);
+	        return true;
+	    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.freeparkingmenu:
+            	Intent intent = new Intent(GetParkingLots.this, FreeParkingLotsNearMeActivity.class);
+            	//intent.putExtra(LATITUDE, GetParkingLots.latitude);
+            	//intent.putExtra(LONGITUDE, GetParkingLots.longitude);
+            	 startActivity(intent);
+            	break;
+            	
+            	 }
+        return true;
+    }
+	
+	@SuppressWarnings("static-access")
 	@Override
 	public void onLocationChanged(Location location) {
+		if (location == null)
+		{
+			Toast.makeText(getApplicationContext(), "Please Enble your location services",Toast.LENGTH_LONG).show();
+		}
 		try
 		{
 		Log.i("GetParkingLots","Inside OnLocationChanged");
 		 latitude = location.getLatitude();
 		Log.i("GetParkingLots","After Latitude");
 		 longitude = location.getLongitude();
-		// Getting reference to TextView tv_longitude
-			//TextView tvLongitude = (TextView)findViewById(R.id.tv_longitude);
-			Log.i("GetParkingLots","After Textviewtv_longitude");
-			
-				LocationAddress locationAddress = new LocationAddress();
+		Log.i("GetParkingLots","After Textviewtv_longitude");
+		// no concept of static class in Java that is not nested?
+				AddressFromLatLng locationAddress = new AddressFromLatLng(); 
                 locationAddress.getAddressFromLocation(latitude, longitude,
                         getApplicationContext(), new GeocoderHandler());
 				}

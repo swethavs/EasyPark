@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+       <TableRow
+        android:id="@+id/tableRow0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/violet"
+        android:gravity="center_horizontal" >
+
+<TextView
+    android:id="@+id/definitionlots"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:text="@string/str_freeparkingtext"
+    android:textSize="@dimen/lots_list_text_size"
+    android:textColor="@color/white"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|fill_vertical|center_vertical"
+        android:layout_weight="6"
+        android:gravity="center" >
+
+        <RadioGroup
+            android:id="@+id/rgfreeparkinglots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:checkedButton="@+id/rbgetfreeparkingspots"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            
+            <RadioButton
+                android:id="@+id/rbgetfreeparkingspots"
+                android:layout_width="wrap_content"
+                android:paddingRight="20dp"
+                android:layout_marginLeft="15dp"
+                android:text="Get Free Parking Lots Near me" />
+
+            <RadioButton
+                android:id="@+id/rbinsertfreeparkingspots"
+                
+                android:text="Insert Free Parking Lots Data" />
+
+        </RadioGroup>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="0.83"
+        android:gravity="center" >
+
+       <Button
+			    android:id="@+id/okfreeparkinglots"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:gravity="center"
+			    android:paddingRight="15dip"
+			    android:paddingLeft="15dip"
+			    android:text="@string/str_btn_ok"
+			    android:textStyle="bold"
+			    android:background ="@color/violet" 
+			    android:layout_margin="10dp"/>
+	
+			<Button
+			    android:id="@+id/cancel_free_parkinglots"
+			    android:layout_width="wrap_content"
+			    android:background ="@color/violet"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:gravity="center"
+			    android:text="@string/str_btn_cancel"
+			    android:textStyle="bold"
+			    android:layout_margin="10dp"
+			    android:paddingRight="15dip"
+			    android:paddingLeft="15dip" />
+        
+        </TableRow>
+
+</LinearLayout>

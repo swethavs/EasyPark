@@ -46,7 +46,7 @@ android:textSize="@dimen/lots_list_text_size"
 
             <ListView
                 android:id="@android:id/list"
-                android:layout_width="360dp"
+                android:layout_width="320dp"
                 android:layout_height="360dp" 
                 android:clickable="true"
                 android:drawSelectorOnTop="true" 

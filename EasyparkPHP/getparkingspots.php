@@ -13,19 +13,6 @@ file_put_contents("outputfilespot.txt", file_get_contents("php://input"));
     
     $tableName = "parkingspots";
  	
- 	/*echo $latitude;
- 	echo $longitude;
- 	echo $radius;
- 	echo $fromTime;
- 	echo $toTime;*/
- 	
- 
-// Let's make sure the file exists and is writable first. 
-
-
-   // In our example we're opening $filename in append mode. 
-   // The file pointer is at the bottom of the file hence  
-   // that's where $somecontent will go when we fwrite() it. 
    
 $fp = fopen("testspot.txt", "w") or die("Unable to open file!");
 
@@ -72,21 +59,17 @@ fwrite($fp, $toTime);
             $parkingspot["parkingspotsid"] = $row["parkingspotsid"];
             $parkingspot["parkingspotname"] = $row["parkingspotname"];
             
-            // push single product into final response array
+
         array_push($response["parkingspots"], $parkingspot);
             
               }
               echo (json_encode($response));
-            // success
-           /* array_push($response["parkinglots"], $parkinglot);
- }// While loop*/
-            // echoing JSON response
-            /*echo json_encode($output);*/
+            
             
         } // rows>0
         else {
-            // no product found
-                                $response["success"] = 0;
+            
+            $response["success"] = 0;
             $response["message"] = "No parkingspots found"; // >0
  
             // echo no users JSON
@@ -103,8 +86,8 @@ fwrite($fp, $toTime);
     }
 } // checking post condition
 else {
-    // required field is missing
-                        $response["success"] = 0;
+    
+    $response["success"] = 0;
     $response["message"] = "Required field(s) is missing";// field missing
  
     // echoing JSON response

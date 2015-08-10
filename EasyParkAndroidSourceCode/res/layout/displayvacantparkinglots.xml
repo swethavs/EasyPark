@@ -51,21 +51,7 @@ distribution of this software for license terms.
         android:descendantFocusability="blocksDescendants"
         android:padding="2dp">
 
-        <!-- A ScrollView is a scrollable box that contains
-        other components that can be added dynamically. The
-        ScrollView allows the user to scroll through components
-        that can't fit on the users screen 
         
-        <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:scrollbarSize="3dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        android:scrollingCache="true"
-        android:smoothScrollbar="true" />-->
         
           <ListView
               android:id="@android:id/list"

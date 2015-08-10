@@ -69,7 +69,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 	public static boolean isRadius;
 	GoogleMap googleMap;
 	String TAG_PARKINGLOTS = "parkinglots";
-	String TAG_SUCCESS = "success";
+	
 	// To pass the arraylist to switch view 
 	public static final String ARRAYLISTMAP = "com.swetha.easypark.DisplayVacantParkingLots.ARRAYLISTMAP";
 
@@ -88,7 +88,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 	static final String getParkingLotsurl =  Constants.IPAddress +"/getparkinglotsdata.php";
 	//static final String getParkingLotsurl = "http://easypark.net46.net/easypark/getparkinglotsdata.php";
 	// static final String getParkingLotsurl = "http://192.168.1.25:80/easypark/getparkinglotsdata.php";
-	 CustomHttpClient httpClientObj = new CustomHttpClient();
+	 
 		public   double radius;
 		public long zipcode;
 		ListAdapter adapter;
@@ -98,11 +98,11 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mapviewlistvacantparkinglots);
-		// getIntent() is a method from the started activity
-		Intent displayIntent = getIntent(); // gets the previously created intent
-		double defaultValue = 0.0;
-		double usersCurrentLatitude = displayIntent.getDoubleExtra(GetParkingLots.LATITUDE,defaultValue); 
-		double usersCurrentLongitude = displayIntent.getDoubleExtra(GetParkingLots.LONGITUDE, defaultValue);
+		
+		Intent displayIntent = getIntent(); 
+		
+		double usersCurrentLatitude = displayIntent.getDoubleExtra(GetParkingLots.LATITUDE,Constants.doubleDefaultValue); 
+		double usersCurrentLongitude = displayIntent.getDoubleExtra(GetParkingLots.LONGITUDE, Constants.doubleDefaultValue);
 		 fromTime = displayIntent.getLongExtra(GetParkingLots.FROMTIME, 0);
 		 toTime = displayIntent.getLongExtra(GetParkingLots.TOTIME, 0);
 		 
@@ -125,9 +125,12 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 		btn_switchToListView.setOnClickListener(new View.OnClickListener() {
 				
 				public void onClick(View v) {
+					if (parkingLotsMapList != null) // fixed crashing of application when no parking data  found
+					{
 					Intent intent = new Intent(DisplayVacantParkingLots.this, DisplayParkingLotsAsList.class);
 					intent.putExtra(ARRAYLISTMAP, parkingLotsMapList);
 					startActivity(intent);
+					}
 				}
 				});
 		
@@ -147,7 +150,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 		 IconGenerator ig = new IconGenerator(this);
 		  
 		  googleMap.clear();
-	        for (int i = 0; i< alofHashmap.size(); i++)
+	        for (int i = (alofHashmap.size() - 1); i >= 0; i--)
 	        {
 	        	 //canvas.drawText(alofHashmap.get(i).get("costForParking"), 0, 40, paint);
 	        LatLng latLng = new LatLng(Double.parseDouble(alofHashmap.get(i).get("latitude")), Double.parseDouble(alofHashmap.get(i).get("longitude")));
@@ -169,7 +172,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
                 public boolean onMarkerClick(Marker arg0) {
                     LatLng markerLatLng = arg0.getPosition();
                     Log.i("DisplayVacantParkingLots","Value of the marker that was clicked is" +markerLatLng.toString());
-                    for (int i =0; i< parkingLotsMapList.size(); i++)
+                    for (int i = (parkingLotsMapList.size() - 1); i >=0 ; i--)
                     {
                     	Log.i("DisplayVacantParkingLots", "value in the parkinglots map inside for loop" +parkingLotsMapList.get(i).toString());
                        if   (parkingLotsMapList.get(i).containsValue(String.valueOf(markerLatLng.latitude)) && parkingLotsMapList.get(i).containsValue(String.valueOf(markerLatLng.longitude)))
@@ -201,16 +204,15 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 			AlertDialog alertDialog = new AlertDialog.Builder(
                     DisplayVacantParkingLots.this).create();
 
-    // Setting Dialog Title
+   
     alertDialog.setTitle("Sorry!");
 
-    // Setting Dialog Message
+ 
     alertDialog.setMessage("No parking lots found");
 
-    // Setting Icon to Dialog
-   // alertDialog.setIcon(R.drawable.tick);
 
-    // Setting OK Button
+
+   
     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             // Write your code here to execute after dialog closed
@@ -219,7 +221,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
             }
     });
 
-    // Showing Alert Message
+
     alertDialog.show();
 
 		}
@@ -268,7 +270,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
         	this.toTime = String.valueOf(toTime);
         	this.radius = String.valueOf(DisplayVacantParkingLots.this.radius);
         	this.zipcode = String.valueOf(DisplayVacantParkingLots.this.zipcode);
-        	this.blockedTimeInHours = ((toTime - fromTime)/3600000.0);
+        	this.blockedTimeInHours = ((toTime - fromTime)/Constants.millisecondsIntoHours);
         	Log.i("DisplayVacantParkingLots:GetParkingLotsFromWebService","blockedTimeInHours" +blockedTimeInHours);
         	this.dvpl = dvpl;
         	}
@@ -289,7 +291,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
 
             // call executeHttpPost method passing necessary parameters 
             try {
-       response = CustomHttpClient.executeHttpPost(getParkingLotsurl, postParams);
+       response = EasyParkHttpClient.executeHttpPost(getParkingLotsurl, postParams);
        Log.i("DisplayVacantParkingLots:GetParkingLotsFromWebService","after making request jsonobject is" +response);
        // store the result returned by PHP script that runs MySQL query
        //String result = response.toString();  
@@ -299,7 +301,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
         	  String result = response.toString();
                   returnString = "";
                   JSONObject jsonOb = new JSONObject(result);
-                  success = jsonOb.getInt(TAG_SUCCESS);
+                  success = jsonOb.getInt(Constants.TAG_SUCCESS);
                   if( success == 1)
                   {
              JSONArray jArray =  jsonOb.getJSONArray(TAG_PARKINGLOTS);
@@ -312,7 +314,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
                                    ", miles: "+json_data.getString("miles")+
                                    ", cost: "+json_data.getString("cost")
                            );
-                           //Get an output to the screen
+                       
                            HashMap<String, String> parkingLotsMap = new HashMap<String, String>();
                			
                			parkingLotsMap.put("vacantParkingLotId",json_data.getString("parkinglotsid"));
@@ -353,7 +355,7 @@ public class DisplayVacantParkingLots extends FragmentActivity {
          * After completing background task Dismiss the progress dialog and use the UI thread to update the UI
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product deleted
+            
             pDialog.dismiss();
             dvpl.updatemap(parkingLotsMapList, success);
  

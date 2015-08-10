@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+/*
+ * Modified the code a little bit and retained the Google license
+ * The IconGenerator class was part of the library developed by Google
+ * Taken from GitHub
+ */
+
 package com.swetha.helpers;
 
 import com.swetha.easypark.R;

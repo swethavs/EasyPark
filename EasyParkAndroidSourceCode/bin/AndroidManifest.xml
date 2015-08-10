@@ -58,6 +58,15 @@
              android:name ="com.swetha.easypark.GoogleDirectionsActivity"/>
          <activity
              android:name ="com.swetha.easypark.DisplayParkingLotsAsList"/>
+           <activity
+             android:name ="com.swetha.easypark.DisplayFreeParkingLotsNearMeActivity"/>
+           <activity
+             android:name ="com.swetha.easypark.KeyInFreeParkingSpotValues"/>
+           <activity
+             android:name ="com.swetha.easypark.FreeParkingLotsNearMeActivity"/>
+           <activity
+             android:name ="com.swetha.easypark.DisplayFreeParkingLotsMapActivity"/>
+         
           <receiver android:name=".NotificationPublisher" />
           
           <meta-data

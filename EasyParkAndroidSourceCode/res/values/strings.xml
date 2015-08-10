@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">EasyPark</string>
+    <string name="action_settings">Insert a vacant spot</string>
+    
     <string name="descOfVacantLotsActivity">Vacant lots near your location:</string>
     <string name="get_nearby_parking_lots">Get Near By Parking Lots</string>
     <string name="select_your_spot">Select Your Parking Spot</string>
@@ -12,5 +14,16 @@
 	<string name="str_btn_cancel"> Cancel</string>
 	<string name="str_newtoeasypark">New to EasyPark?</string>
 	<string name="str_switchtolistview">Switch to list view</string>
+	<string name="str_streetparking">Get Vacant Parking</string>
+	<string name="str_btn_insert">Insert vacant spots</string>
+	<string name="str_insertstreetparking">Insert Available Spots</string>
+	<string name="str_freetparking">Free Parking</string>
+	<string name="str_freeparkingtext">What do you want to do?</string>
+	<string name="str_btn_ok">OK</string>
+	
+	
+	
+	
+	
 	
 </resources>

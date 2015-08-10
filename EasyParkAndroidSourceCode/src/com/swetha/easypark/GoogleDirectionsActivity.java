@@ -34,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.swetha.helpers.Constants;
 
 public class GoogleDirectionsActivity extends FragmentActivity implements LocationListener  {
 	public  Location location = null;
@@ -56,8 +57,8 @@ public class GoogleDirectionsActivity extends FragmentActivity implements Locati
         Log.i("GoogleDirectionsActivity","Inside Oncreate");
         
         Intent theIntent = getIntent();
-        tolat = theIntent.getDoubleExtra(GetParkingLots.LATITUDE, 0.0);
-        tolng = theIntent.getDoubleExtra(GetParkingLots.LONGITUDE, 0.0);
+        tolat = theIntent.getDoubleExtra(GetParkingLots.LATITUDE, Constants.doubleDefaultValue);
+        tolng = theIntent.getDoubleExtra(GetParkingLots.LONGITUDE, Constants.doubleDefaultValue);
         
         toPosition = new LatLng(tolat, tolng);
          
@@ -120,7 +121,7 @@ public class GoogleDirectionsActivity extends FragmentActivity implements Locati
 		mMap.addMarker(new MarkerOptions().position(fromPosition).title("Start"));
 		mMap.addMarker(new MarkerOptions().position(toPosition).title("End"));
 		
-		Document doc = md.getDocument(fromPosition, toPosition, GetDirections.MODE_DRIVING);
+		Document doc = md.getDocument(fromPosition, toPosition, Constants.MODE_DRIVING);
 		String duration = md.getDurationText(doc);
 		
 		tv_duration = (TextView) findViewById(R.id.tv_time);

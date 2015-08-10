@@ -1,9 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/menu_settings"/>
+   
+
+    <item android:id="@+id/freeparkingmenu" 
+        
+        android:title="@string/str_freetparking"
+         android:showAsAction="always|withText"/>
+    
+
 
 </menu>

@@ -6,6 +6,9 @@ Copyright (c) 2015 swethavs
 Please see the file COPYING in the source
 
 distribution of this software for license terms.
+
+// refered http://www.learn-android-easily.com/2013/03/developing-app-for-user-sign-insign-up.html
+
 ****************************************************************/
 
 package com.swetha.easypark;
@@ -16,6 +19,8 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
+
 public class DataBaseHelper extends SQLiteOpenHelper
 {
 	public DataBaseHelper(Context context, String name,CursorFactory factory, int version) 
@@ -24,18 +29,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
 	           super(context, name, factory, version);
 	           Log.i("DataBaseHelper","INSIDE CONSTRUCTOR AFTER SUPER");
 	}
-	// Called when no database exists in disk and the helper class needs
-	// to create a new one.
+	
 	@Override
 	public void onCreate(SQLiteDatabase _db) 
 	{
 		Log.i("DataBaseHelper","INSIDE ON CREATE");
-			_db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
+			_db.execSQL(EasyParkLoginDBAdapter.DATABASE_CREATE);
 			Log.i("DataBaseHelper","AFTER ON CREATE");
 			
 	}
-	// Called when there is a database version mismatch meaning that the version
-	// of the database on disk needs to be upgraded to the current version.
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion) 
 	{
@@ -43,10 +46,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 			Log.w("TaskDBAdapter", "Upgrading from version " +_oldVersion + " to " +_newVersion + ", which will destroy all old data");
 	
 	
-			// Upgrade the existing database to conform to the new version. Multiple
-			// previous versions can be handled by comparing _oldVersion and _newVersion
-			// values.
-			// The simplest case is to drop the old table and create a new one.
+			
 			_db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
 			// Create a new one.
 			onCreate(_db);

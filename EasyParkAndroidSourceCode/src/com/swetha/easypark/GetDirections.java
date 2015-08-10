@@ -30,23 +30,24 @@ import org.w3c.dom.NodeList;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.swetha.helpers.Constants;
 
 public class GetDirections {
 	
-	public final static String MODE_DRIVING = "driving";
+	
 	
 	public GetDirections() {}
 	public Document getDocument(LatLng start, LatLng end, String mode) {
-		String url = "http://maps.googleapis.com/maps/api/directions/xml?" 
+		String googleDirurl = Constants.GOOGLEDIRECTIONSURL
         		+ "origin=" + start.latitude + "," + start.longitude  
         		+ "&destination=" + end.latitude + "," + end.longitude 
         		+ "&sensor=false&units=metric&mode=driving";
 		
-		Log.d("GoogleMapsDirection", url);
+		Log.d("GoogleMapsDirection", googleDirurl);
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(googleDirurl);
             HttpResponse response = httpClient.execute(httpPost, localContext);
             InputStream in = response.getEntity().getContent();
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

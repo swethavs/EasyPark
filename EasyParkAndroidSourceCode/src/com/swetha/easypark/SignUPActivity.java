@@ -26,7 +26,7 @@ public class SignUPActivity extends Activity
 	EditText editTextUserName,editTextPassword,editTextConfirmPassword;
 	Button btnCreateAccount;
 	
-	LoginDataBaseAdapter loginDataBaseAdapter;
+	EasyParkLoginDBAdapter easyParkLoginDBAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -34,8 +34,8 @@ public class SignUPActivity extends Activity
 		setContentView(R.layout.signup);
 		
 		// get Instance  of Database Adapter
-		loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-		loginDataBaseAdapter=loginDataBaseAdapter.open();
+		easyParkLoginDBAdapter=new EasyParkLoginDBAdapter(this);
+		easyParkLoginDBAdapter=easyParkLoginDBAdapter.open();
 		
 		// Get References of Views
 		editTextUserName=(EditText)findViewById(R.id.editTextUserName);
@@ -67,7 +67,7 @@ public class SignUPActivity extends Activity
 			else
 			{
 			    // Save the Data in Database
-			    String returnString = loginDataBaseAdapter.insertEntry(userName, password);
+			    String returnString = easyParkLoginDBAdapter.insertEntry(userName, password);
 			    Toast.makeText(getApplicationContext(), returnString, Toast.LENGTH_LONG).show();
 			    Intent intent = new Intent(SignUPActivity.this, HomeActivity.class);
 			    startActivity(intent);
@@ -80,6 +80,6 @@ public class SignUPActivity extends Activity
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		
-		loginDataBaseAdapter.close();
+		easyParkLoginDBAdapter.close();
 	}
 }

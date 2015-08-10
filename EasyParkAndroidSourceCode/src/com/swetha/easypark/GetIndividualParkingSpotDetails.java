@@ -22,12 +22,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.swetha.easypark.DisplayVacantParkingLots.GetParkingLotsFromWebService;
 import com.swetha.helpers.DateTimeHelpers;
 import com.swetha.helpers.Constants;
 
-import android.app.Activity;
+
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -45,16 +43,16 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
 
 
+@SuppressWarnings({ "deprecation" })
 public class GetIndividualParkingSpotDetails extends ListActivity {
 	
-	private List<TextSelected> mSelectionList = new ArrayList<TextSelected>();
+	private List<RadioButtonTracker> mSelectionList = new ArrayList<RadioButtonTracker>();
 	private Context mContext;
 	private Button btn_next, btn_back;
 	private CheckBox chk_default;
@@ -68,7 +66,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 	static final String getParkingSpotsurl =  Constants.IPAddress+ "/getparkingspots.php";
 	static final String updateParkingSpoturl =  Constants.IPAddress +"/updateparkingspot.php";
 	 
-	 CustomHttpClient httpClientObj = new CustomHttpClient();
+	 
 	 private ProgressDialog pDialog;
 	 String parkingLotId;
 	 double latitude, longitude;
@@ -77,7 +75,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 	 String theParkingSpotId;
 	long toTime, fromTime;
 	int success;
-	TextSelectedListAdapter adapter;
+	RadioButtonTrackerListAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +94,8 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		
 		Log.i("GetIndividualParkingSpotDetails","After getting from intent" +fromTime +toTime +parkingLotId);
 	
-	/*	parkingSpotMapList = new ArrayList<LinkedHashMap<String, String>>();
+	/*	Test Data
+	 * parkingSpotMapList = new ArrayList<LinkedHashMap<String, String>>();
 		LinkedHashMap<String, String> parkingSpotMap = new LinkedHashMap<String, String>();
 		
 		parkingSpotMap.put("parkingspotid", parkingLotId);
@@ -119,7 +118,6 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		    btn_next.setFocusable(true);
 		    Log.i("GetIndividualParkingSpotDetails","After firstbutton focussable");
 		    btn_next.setOnClickListener(new View.OnClickListener() {
-				@SuppressWarnings("deprecation")
 				public void onClick(View v) {
 					
 					//ListView l = getListView();
@@ -162,10 +160,10 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		@Override
 	    protected void onListItemClick(ListView l, View v, int position, long id) 
 	    {    
-			TextSelected l_prevV;
+			RadioButtonTracker l_prevV;
 			Log.i("GetIndividualParkingSpotDetails","Inside on list Itemclick");
-	    	TextSelectedView l_v = (TextSelectedView)v;
-	    	Log.i("GetIndividualParkingSpotDetails","Inside onlistItemclick after textselectedview" +l_v);
+	    	IndividualItemInListView l_v = (IndividualItemInListView)v;
+	    	Log.i("GetIndividualParkingSpotDetails","Inside onlistItemclick after IndividualItemInListView" +l_v);
 	    	if (!l_v.getSelected())  {
 	    		Log.i("GetIndividualParkingSpotDetails", "value of list is" +l);
 	    		ListView lv = getListView();
@@ -179,7 +177,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 	    		}
 	    		else
 	    		{
-	    			l_prevV = (TextSelected)l.getItemAtPosition(mSelectedItem);
+	    			l_prevV = (RadioButtonTracker)l.getItemAtPosition(mSelectedItem);
 		    		l_prevV.setSelected(false);
 	    		}
 	    		mSelectedItem = position;
@@ -189,7 +187,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 	    	
 	    }
 		
-		@SuppressWarnings("deprecation")
+		
 		public void updateListView(ArrayList<LinkedHashMap<String, String>> parkingSpotMapList, int success)
 		{
 			if (success == 1)
@@ -197,22 +195,22 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		 mSelectedItem = 0;	    
 		 for (int i=0; i< parkingSpotMapList.size(); i++) {
 			 Log.i("GetIndividualParkingSpotDetails","Inside For loop");
-			 TextSelected l_ts;
+			 RadioButtonTracker l_ts;
 			 LinkedHashMap<String, String>  map = parkingSpotMapList.get(i);
 			 Log.i("GetIndividualParkingSpotDetails","Value in map is "+ map.get("vacantspotdisplay"));
 			 Log.i("GetIndividualParkingSpotDetails","parking spoid is is "+ map.get("parkingspotid"));
 			 if(i == mSelectedItem)
 			 {
-				 Log.i("GetIndividualParkingSpotDetails","Before calling TextSelected constructor - if");
-	    		l_ts = new TextSelected(map, true);
-	    		Log.i("GetIndividualParkingSpotDetails","After calling TextSelected constructor-if");
+				 Log.i("GetIndividualParkingSpotDetails","Before calling RadioButtonTracker constructor - if");
+	    		l_ts = new RadioButtonTracker(map, true);
+	    		Log.i("GetIndividualParkingSpotDetails","After calling RadioButtonTracker constructor-if");
 	    		} else {
-	    			l_ts = new TextSelected(map, false);
+	    			l_ts = new RadioButtonTracker(map, false);
 	    		}
 		    	mSelectionList.add(l_ts);
 	    	}
 		 Log.i("GetIndividualParkingSpotDetails","After -if-else condition");
-		 adapter  = new TextSelectedListAdapter(mContext);
+		 adapter  = new RadioButtonTrackerListAdapter(mContext);
 	    	adapter.setListItems(mSelectionList);
 	    	Log.i("GetIndividualParkingSpotDetails","After setListItems");
 	        this.setListAdapter(adapter);
@@ -256,7 +254,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		        
 		        long currentTimeInLong = DateTimeHelpers.convertToLongFromTime(DateTimeHelpers.dtf.format(new Date()).toString());
-		        long delay = toTime - currentTimeInLong;
+		        long delay = toTime - (currentTimeInLong + Constants.tenMinutesInMilliseconds);
 		        long futureInMills = SystemClock.elapsedRealtime() + delay;
 		        
 		        Log.i("GetIndividualParkingSpotDetails"," Spot has been blocked till long " +toTime);
@@ -293,7 +291,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		        .bigText(content).build();
 		    }
 		  
-		 @SuppressWarnings("deprecation")
+		 
 		public void  displayalertdialog(double latitude, double longitude, String address, int success)
 		 {
 			 final double lat = latitude;
@@ -424,6 +422,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		        	this.gipsd = gips;
 		        	}
 
+				
 				@Override
 				protected String doInBackground(String... params) {
 					ArrayList<NameValuePair> postParams = new ArrayList<NameValuePair>();
@@ -436,7 +435,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 
 		            // call executeHttpPost method passing necessary parameters 
 		            try {
-		       response = CustomHttpClient.executeHttpPost(getParkingSpotsurl, postParams);
+		       response = EasyParkHttpClient.executeHttpPost(getParkingSpotsurl, postParams);
 		       Log.i("GetIndividualParkingSpotDetails:GetParkingSpotsFromWebService","after making request jsonobject is" +response);
 		       // store the result returned by PHP script that runs MySQL query
 		       //String result = response.toString();  
@@ -532,6 +531,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 		        	this.gipsd = gips;
 		        	}
 
+				
 				@Override
 				protected String doInBackground(String... params) {
 					ArrayList<NameValuePair> postParams = new ArrayList<NameValuePair>();
@@ -545,7 +545,7 @@ public class GetIndividualParkingSpotDetails extends ListActivity {
 
 		            // call executeHttpPost method passing necessary parameters 
 		            try {
-		       response = CustomHttpClient.executeHttpPost(updateParkingSpoturl, postParams);
+		       response = EasyParkHttpClient.executeHttpPost(updateParkingSpoturl, postParams);
 		       Log.i("GetIndividualParkingSpotDetails:UpdateParkingSpotThroughWebService","after making request jsonobject is" +response);
 		       // store the result returned by PHP script that runs MySQL query
 		       //String result = response.toString();  

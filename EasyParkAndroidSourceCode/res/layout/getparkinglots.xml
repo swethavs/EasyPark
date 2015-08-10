@@ -76,9 +76,9 @@ android:layout_weight="1">
          android:text = "2.0"
 	     android:paddingRight="15dip"
          android:gravity="left"
-          android:singleLine="true"
-          android:longClickable="false"
-          android:inputType="numberDecimal"/>
+         android:singleLine="true"
+         android:longClickable="false"
+         android:inputType="numberDecimal"/>
         
          </TableRow>
      <TableRow

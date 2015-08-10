@@ -20,7 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * 
  * @author Swetha Venkatachari Sundarajan
- * This class displays the available parking lots in the form of list including the distaance 
+ * This class displays the available parking lots in the form of list including the distance 
  * from the current location and the cost for parking
  *
  */

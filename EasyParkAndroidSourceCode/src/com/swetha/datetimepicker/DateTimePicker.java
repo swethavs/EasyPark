@@ -35,8 +35,6 @@ import android.widget.RelativeLayout;
  
 
 public class DateTimePicker extends RelativeLayout {
-	// DatePicker reference 
-	//http://custom-android-dn.blogspot.com/2013/03/how-to-create-custom-date-time-picker.html
 		private int startYear = 1900;
 		private int endYear = 2100;
 

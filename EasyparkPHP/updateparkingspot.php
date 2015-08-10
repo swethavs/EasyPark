@@ -14,20 +14,7 @@ file_put_contents("outputfilespot.txt", file_get_contents("php://input"));
     
     $tableName = "parkingspots";
  	
- 	/*echo $latitude;
- 	echo $longitude;
- 	echo $radius;
- 	echo $fromTime;
- 	echo $toTime;*/
  	
- 
-// Let's make sure the file exists and is writable first. 
-
-
-   // In our example we're opening $filename in append mode. 
-   // The file pointer is at the bottom of the file hence  
-   // that's where $somecontent will go when we fwrite() it. 
-   
 $fp = fopen("testupdateaddress.txt", "w") or die("Unable to open file!");
 
 fwrite($fp, $individualparkinglotid);

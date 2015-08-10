@@ -11,30 +11,44 @@ distribution of this software for license terms.
 package com.swetha.easypark;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.swetha.easypark.R;
+import com.swetha.helpers.Constants;
 
 
 public class HomeActivity extends Activity 
 {
 	Button btnSignIn,btnSignUp;
-	LoginDataBaseAdapter loginDataBaseAdapter;
-	
+	EasyParkLoginDBAdapter easyParkLoginDBAdapter;
+	SharedPreferences sharedpreferences;
+	SharedPreferences.Editor editor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 	     super.onCreate(savedInstanceState);
 	     setContentView(R.layout.main);
+	     sharedpreferences = getSharedPreferences(Constants.MYPREFERENCES, Context.MODE_PRIVATE);
+	     editor = sharedpreferences.edit();
+         
+         if (sharedpreferences.getString(Constants.UNAME, "") != "")
+         {
+        	 Intent intent = new Intent(HomeActivity.this, GetParkingLots.class);
+        	 startActivity(intent);
+         }
+	      
 	     
 	     // create a instance of SQLite Database
-	     loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-	     loginDataBaseAdapter=loginDataBaseAdapter.open();
+         easyParkLoginDBAdapter=new EasyParkLoginDBAdapter(this);
+         easyParkLoginDBAdapter=easyParkLoginDBAdapter.open();
 	     
 	     // Get The Reference Of Buttons
 	     //btnSignIn=(Button)findViewById(R.id.buttonSignIN);
@@ -64,8 +78,11 @@ public class HomeActivity extends Activity
 		    String userName=editTextUserName.getText().toString();
 					String password=editTextPassword.getText().toString();
 					
+					editor.putString(Constants.UNAME, userName);
+			         editor.commit();
+					
 					// fetch the Password form database for respective user name
-					String storedPassword=loginDataBaseAdapter.getSinlgeEntry(userName);
+					String storedPassword=easyParkLoginDBAdapter.getSinlgeEntry(userName);
 					
 					// check if the Stored password matches with  Password entered by user
 					if(password.equals(storedPassword))
@@ -91,6 +108,6 @@ public class HomeActivity extends Activity
 	protected void onDestroy() {
 		super.onDestroy();
 	    // Close The Database
-		loginDataBaseAdapter.close();
+		easyParkLoginDBAdapter.close();
 	}
 }
