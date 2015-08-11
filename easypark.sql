@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 04, 2015 at 05:46 AM
+-- Generation Time: Aug 08, 2015 at 10:46 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -19,6 +19,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `easypark`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `freeparkinglots`
+--
+
+CREATE TABLE IF NOT EXISTS `freeparkinglots` (
+  `id` int(11) NOT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `time` bigint(20) NOT NULL,
+  `nooflots` int(11) NOT NULL,
+  `user` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `freeparkinglots`
+--
+
+INSERT INTO `freeparkinglots` (`id`, `latitude`, `longitude`, `address`, `time`, `nooflots`, `user`) VALUES
+(1, 45.5235712, -122.889016, 'Quatama/NW 205th Ave MAX Station,Or', 1438841175235, 4, 'swethavs'),
+(6, 45.5235808, -122.8890029, '611 NW Garswood Terrace,Beaverton, OR 97006,Beaver', 1438979460000, 1, 'hi'),
+(7, 45.5235808, -122.8890029, '611 NW Garswood Terrace,Beaverton, OR 97006,Beaver', 1438979460000, 1, 'swethavs'),
+(8, 45.5235808, -122.8890029, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaver', 1438979460000, 1, 'swethavs'),
+(9, 45.5235808, -122.8890029, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaver', 1438980720000, 1, 'swethavs'),
+(10, 45.5235808, -122.8890029, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaver', 1438980720000, 1, 'swethavs'),
+(11, 45.5235821, -122.8890267, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaver', 1438981080000, 3, 'swethavs'),
+(12, 45.517630999999994, -122.882634, '20001-20099 SW Mohican St\nBeaverton, OR 97006\nBeav', 1438984080000, 6, 'swethavs'),
+(13, 45.519196, -122.886398, 'Beaverton, OR 97006\nBeaverton\n', 1438993740000, 3, 'swethavs'),
+(14, 45.5235833, -122.8890149, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaverton\n', 1438998780000, 20, 'swethavs'),
+(15, 45.5235658, -122.8889744, '611 NW Garswood Terrace\nBeaverton, OR 97006\nBeaverton\n', 1439007660000, 36, 'hi');
 
 -- --------------------------------------------------------
 
@@ -122,6 +155,12 @@ INSERT INTO `parkingspots` (`parkingspotsid`, `parkingspotname`, `fk_parkinglots
 --
 
 --
+-- Indexes for table `freeparkinglots`
+--
+ALTER TABLE `freeparkinglots`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `parkinglots`
 --
 ALTER TABLE `parkinglots`
@@ -138,6 +177,11 @@ ALTER TABLE `parkingspots`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `freeparkinglots`
+--
+ALTER TABLE `freeparkinglots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `parkinglots`
 --
