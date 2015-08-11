@@ -36,6 +36,8 @@ You can report the bugs in the following link: https://github.com/swethavs/EasyP
  https://developers.google.com/maps/documentation/android/start#getting_the_google_maps_android_api_v2<BR>
 3. PHP: http://www.w3schools.com/php<BR>
 4. MySQL Haversines Formula to calculate radius:<Br> http://stackoverflow.com/questions/574691/mysql-great-circle-distance-haversine-formula
+5. Google: Added files from google Github for google maps custom marker
+  https://github.com/googlemaps/android-maps-utils/tree/master/library/src/com/google/maps/android/ui
 
 
 ### User Docs
