@@ -42,6 +42,7 @@ You can report the bugs in the following link: https://github.com/swethavs/EasyP
 
 ### User Docs
 You can refer the user manaul documnet to get build instructions, prerequisites  and info on API
+https://github.com/swethavs/EasyPark/blob/master/UserManual.pdf
 
 #####Contact Information
 You can email to vswetha@pdx.edu if you have any queries on this project
