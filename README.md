@@ -1,7 +1,7 @@
 # EasyPark
 Copyright © 2015 Swetha Venkatachari Sundarajan
 
-This project is licensed under MIT Lincese. Please see the file 'COPYING' IN Github for license terms
+This project is licensed under MIT Lincese. Please see the file 'COPYING' in Github for license terms
 
 An android application which helps people in finding the nearest vacant parking spot. 
 
