@@ -39,6 +39,8 @@ You can report the bugs in the following link: https://github.com/swethavs/EasyP
 5. Google: Added files from google Github for google maps custom marker
   https://github.com/googlemaps/android-maps-utils/tree/master/library/src/com/google/maps/android/ui
 
+### .apk File
+You can get the apk file from https://github.com/swethavs/EasyPark/blob/master/EasyParkAndroidSourceCode/bin/EasyPark.apk
 
 ### User Docs
 You can refer the user manaul documnet to get build instructions, prerequisites  and info on API
