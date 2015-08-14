@@ -1,9 +1,9 @@
 # EasyPark
 Copyright © 2015 Swetha Venkatachari Sundarajan
 
-This project is licensed under MIT Lincese. Please see the file 'COPYING' in Github for license terms
+This project is licensed under MIT Lincese. Please see the file 'COPYING'(https://github.com/swethavs/EasyPark/blob/master/COPYING) for license terms
 
-An android application which helps people in finding the nearest vacant parking spot. 
+An open source  android application which helps people in finding the nearest vacant parking spot. 
 
 ### Project Description
 This app helps users in finding the free or paid vacant parking spots near them. In the Free Parking, users get to see a list of vacant parking spots that are near them and also get direction to their parking spot. The app also allows users to enter the free parking spots found by them and populate the database for rest of the user community. Thus, if you are a user of this app and find vacant parking spots near you, you can key in the number of vacant parking spots. The app records your current location automatically. You can also drag the marker in the google map and point it to a different location, if needed.<BR>
@@ -17,6 +17,9 @@ This app helps users in finding the free or paid vacant parking spots near them.
 
 ###Source Code
 https://github.com/swethavs/EasyPark
+
+### .apk File
+You can get the apk file from https://github.com/swethavs/EasyPark/blob/master/EasyParkAndroidSourceCode/bin/EasyPark.apk
 
 ###License Information
 https://github.com/swethavs/EasyPark/blob/master/LICENSE
@@ -39,12 +42,15 @@ You can report the bugs in the following link: https://github.com/swethavs/EasyP
 5. Google: Added files from google Github for google maps custom marker
   https://github.com/googlemaps/android-maps-utils/tree/master/library/src/com/google/maps/android/ui
 
-### .apk File
-You can get the apk file from https://github.com/swethavs/EasyPark/blob/master/EasyParkAndroidSourceCode/bin/EasyPark.apk
-
 ### User Docs
 You can refer the user manaul documnet to get build instructions, prerequisites  and info on API
 https://github.com/swethavs/EasyPark/blob/master/UserManual.pdf
+
+### Final Presentation
+https://github.com/swethavs/EasyPark/blob/master/EasyPark.pptx
+
+### Author
+Swetha Venkatachari Sundarajan
 
 #####Contact Information
 You can email to vswetha@pdx.edu if you have any queries on this project
