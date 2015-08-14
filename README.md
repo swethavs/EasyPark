@@ -1,7 +1,7 @@
 # EasyPark
 Copyright © 2015 Swetha Venkatachari Sundarajan
 
-This project is licensed under MIT Lincese. Please see the file 'COPYING'(https://github.com/swethavs/EasyPark/blob/master/COPYING) for license terms
+This project is licensed under  the "MIT License". Please see the file [COPYING](https://github.com/swethavs/EasyPark/blob/master/COPYING) in this distribution for license terms.
 
 An open source  android application which helps people in finding the nearest vacant parking spot. 
 
@@ -22,7 +22,7 @@ https://github.com/swethavs/EasyPark
 You can get the apk file from https://github.com/swethavs/EasyPark/blob/master/EasyParkAndroidSourceCode/bin/EasyPark.apk
 
 ###License Information
-https://github.com/swethavs/EasyPark/blob/master/LICENSE
+This work is available under the "MIT License". Please see the file [COPYING](https://github.com/swethavs/EasyPark/blob/master/COPYING) in this distribution for license terms.
 
 ###Bug or Issue Tracker 
 You can report the bugs in the following link: https://github.com/swethavs/EasyPark/issues
