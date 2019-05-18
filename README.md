@@ -51,6 +51,3 @@ https://github.com/swethavs/EasyPark/blob/master/EasyPark.pptx
 
 ### Author
 Swetha Venkatachari Sundarajan
-
-#####Contact Information
-You can email to swethasundararajan@gmail.com if you have any queries on this project
