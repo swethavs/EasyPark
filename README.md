@@ -51,3 +51,6 @@ https://github.com/swethavs/EasyPark/blob/master/EasyPark.pptx
 
 ### Author
 Swetha Venkatachari Sundarajan
+
+### Note
+This app was developed  as part of a school project and is NOT associated with the EasyPark android app that is available in Google PlayStore in anyway. 
